@@ -23,6 +23,10 @@ static float3* pixelBufferDevice;
 static int dimX;
 static int dimY;
 static BVHNode* rootDevice;
+static int numSpheres;
+static int numTriangles;
+static sphere* spheres;
+static triangle* triangles;
 //these are both technically GPU ptrs, but need a version for both
 //as the GPU can't access the one defined in the header for the host.
 //if it doesn't stay across kernels, can find another way.
@@ -34,6 +38,7 @@ __device__ static curandState* rstate_d;
 //maybe don't return node here, just set static one above
 __host__ BVHNode* buildBVH(sphere* spheres, int numSphere, triangle* triangles, int numTriangles);
 __host__ bool initializePathTracing(float3* pixelBuffer, int x, int y);
+__host__ void giveObjects(sphere* s, int ns, triangle* t, int nt);
 __host__ unsigned char* draw(Camera& camera, int maxDepth);
 
 /*
